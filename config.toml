@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "Blog"
+title = "Mohab Abd Eldayem's blog"
 theme = "cupper-hugo-theme"
 defaultContentLanguage = "en"
 contentDir= "posts"
@@ -19,7 +19,7 @@ quality = 100
 description_firstname = "Mohab"
 description_lastname = "Abd El-Dayem"
 description_title = "Software Engineer"
-homeMetaContent = "An accessibility-friendly Hugo theme, ported from the original Cupper project."
+homeMetaContent = "An awesome software engineering blog made by Mohab Abd El-Dayem"
 footer = "Made with [Hugo](https://gohugo.io/). Themed by [Cupper](https://github.com/zwbetz-gh/cupper-hugo-theme)."
 dateFormat = "Jan 2, 2006"
 katex = true
