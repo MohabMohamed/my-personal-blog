@@ -1,4 +1,86 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "Mohab Abd El-Dayem blog"
+title = "Blog"
 theme = "cupper-hugo-theme"
+defaultContentLanguage = "en"
+contentDir= "posts"
+enableEmoji = true
+
+[taxonomies]
+tag = "tags"
+
+[permalinks]
+post = "/:filename/"
+
+[imaging]
+quality = 100
+
+[params]
+description_firstname = "Mohab"
+description_lastname = "Abd El-Dayem"
+description_title = "Software Engineer"
+homeMetaContent = "An accessibility-friendly Hugo theme, ported from the original Cupper project."
+footer = "Made with [Hugo](https://gohugo.io/). Themed by [Cupper](https://github.com/zwbetz-gh/cupper-hugo-theme)."
+dateFormat = "Jan 2, 2006"
+katex = true
+hideHeaderLinks = false
+search = true
+showThemeSwitcher = true
+defaultDarkTheme = false
+moveFooterToHeader = false
+logoAlt = "Mohab Abd El-Dayem"
+
+[[menu.nav]]
+name = "Blogs"
+url = "/"
+weight = 1
+
+[[menu.nav]]
+name = "Tags"
+url = "/tags/"
+weight = 2
+
+[[menu.nav]]
+name = "About"
+url = "/about/"
+weight = 3
+
+[[menu.nav]]
+name = "RSS"
+url = "/index.xml"
+weight = 4
+
+[markup]
+defaultMarkdownHandler = "goldmark"
+
+[markup.goldmark.extensions]
+definitionList = true
+footnote = true
+linkify = true
+strikethrough = true
+table = true
+taskList = true
+typographer = true
+
+[markup.goldmark.parser]
+attribute = true
+autoHeadingID = true
+
+[markup.goldmark.renderer]
+hardWraps = false
+unsafe = true
+xHTML = false
+
+  [markup.highlight]
+  codeFences = false
+  hl_Lines = ""
+  lineNoStart = 1
+  lineNos = false
+  lineNumbersInTable = true
+  noClasses = true
+  style = "monokai"
+  tabWidth = 4
+
+  [markup.tableOfContents]
+  endLevel = 6
+  startLevel = 2
