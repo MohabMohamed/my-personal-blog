@@ -1,3 +1,6 @@
 [submodule "themes/cupper-hugo-theme"]
 	path = themes/cupper-hugo-theme
 	url = http://github.com/MohabMohamed/cupper-hugo-theme.git
+[submodule "data/comments"]
+	path = data/comments
+	url = https://github.com/MohabMohamed/blog_comments.git
