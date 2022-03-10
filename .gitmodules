@@ -4,3 +4,4 @@
 [submodule "data/comments"]
 	path = data/comments
 	url = https://github.com/MohabMohamed/blog_comments.git
+	branch = main
