@@ -68,6 +68,8 @@
         {{ end }}
         <label for="fields[name]">Name:</label>
         <input name="fields[name]" id="yourname" type="text" placeholder="Your name"/>
+        <label for="fields[email]">Email:</label>
+        <input name="fields[email]" id="youremail" type="text" placeholder="Your email"/>
         <label for="fields[comment]">Comment:</label>
         <textarea name="fields[comment]" id="yourcomment" placeholder="What are you thinking?"></textarea>
         {{ if $.Site.Params.staticman.recaptcha }}
