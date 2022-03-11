@@ -50,7 +50,7 @@
   })
 }());
 
-
+{{ if not .Site.Params.hideHeaderLinks }}
   /* Add "link here" links to <h2> headings */
   (function () {
     var headings = document.querySelectorAll('h2, h3, h4, h5, h6');
@@ -78,7 +78,7 @@
       }
     })
   }());
-
+{{ end }}
 
 /* Enable scrolling by keyboard of code samples */
 (function () {
@@ -114,11 +114,17 @@
   }
 
   function defaultDarkTheme() {
+{{- with .Site.Params.defaultDarkTheme }}
+    if (localStorage.getItem('darkTheme') == null) {
+      persistTheme('true');
+      checkbox.checked = true;
+    }
+{{- else }}
     if (localStorage.getItem('darkTheme') == null) {
       persistTheme('false');
       checkbox.checked = false;
     }
-
+{{ end }}
   }
 
   checkbox.addEventListener('change', function () {

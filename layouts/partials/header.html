@@ -1,0 +1,31 @@
+<header class="intro-and-nav" role="banner">
+  <div>
+    <script data-goatcounter="https://abd-eldayem-gt.goatcounter.com/count"
+    async src="//gc.zgo.at/count.js"></script>
+    <div class="intro">
+      <a
+        class="logo"
+        href="{{ .Site.BaseURL }}"
+        aria-label="{{ .Site.Title }} home page"
+      >
+        <img 
+          src="{{ "images/me2.jpg" | relURL }}" 
+          alt="{{ .Site.Params.logoAlt | default "Logo" }}">
+      </a>
+ 
+    <h3 class="library-desc"  style="text-align: center;font-size: 1rem;">
+        {{ with .Site.Params.description_firstname }} {{ . | markdownify }} {{ end }}
+      </h3>
+      <h3 class="library-desc"  style="text-align: center;font-size: 1rem;">
+        {{ with .Site.Params.description_lastname }} {{ . | markdownify }} {{ end }}
+      </h3>
+      <h6 class="library-desc" style="text-align: center;font-size: 0.76rem;">
+        {{ with .Site.Params.description_title }} {{ . | markdownify }} {{ end }}
+      </h6>
+    </div>
+    {{ partial "nav.html" . }}
+    {{ if eq .Site.Params.moveFooterToHeader true }}
+      {{ partial "footer.html" . }}
+    {{ end }}
+  </div>
+</header>
