@@ -3,6 +3,7 @@
 <script src="{{ $domScripts.RelPermalink }}"></script>  
 
 <script src="{{ "js/prism.js" | relURL }}"></script>
+<script src="{{ "js/dom-scripts.js" | relURL }}"></script>
 
 {{ if site.Params.search }}
 {{ $searchJs := resources.Get "js/search.js" | fingerprint }}

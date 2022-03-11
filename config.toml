@@ -26,16 +26,15 @@ katex = true
 hideHeaderLinks = false
 search = true
 showThemeSwitcher = true
-defaultDarkTheme = false
+defaultDarkTheme = true
 moveFooterToHeader = false
 logoAlt = "Mohab Abd El-Dayem"
 
-[staticman]
+[params.staticman]
 api = "https://mohab-statickman.herokuapp.com/v3/entry/MohabMohamed/blog_comments/main/comments"
-
-  [staticman.recaptcha]
-  sitekey = "6Ld_osoeAAAAAN8NQmmqJBY6mdsBzfmxr0IXALAv"
-  secret = "s7LYmIeIQwRKde86jVfVDp50SxE1H5WWdd1vqTOwowkT8D4mUFtpP8xs/DjsHuXraVMW0P2eiZH/ULw54j39+dMuMnNJLhenRQGnSwoYjuxDjOQGOgVkug88r4D0xmDE6g+Rx08hrafGvLlF5ByBu0hs/PUaYBT9Yj7EfgiO2PjUO09JgrOzZThLXh4y87hjZqK2+lxjqHE7Z9uEuZX0ce+xhPiDaV5I5HFeLFu1COzdv4GSbOzz1LDj+f98WR2RaOXPkYxg32FdjSdXERLy1Uh+qHC1OtlGFoaRktc/DgWR1PmTtMKAbL7MEhPrjlyhV6I1QmTPlMNjtl1xsSCu8w=="
+[params.staticman.recaptcha]
+sitekey = "6Ld_osoeAAAAAN8NQmmqJBY6mdsBzfmxr0IXALAv"
+secret = "s7LYmIeIQwRKde86jVfVDp50SxE1H5WWdd1vqTOwowkT8D4mUFtpP8xs/DjsHuXraVMW0P2eiZH/ULw54j39+dMuMnNJLhenRQGnSwoYjuxDjOQGOgVkug88r4D0xmDE6g+Rx08hrafGvLlF5ByBu0hs/PUaYBT9Yj7EfgiO2PjUO09JgrOzZThLXh4y87hjZqK2+lxjqHE7Z9uEuZX0ce+xhPiDaV5I5HFeLFu1COzdv4GSbOzz1LDj+f98WR2RaOXPkYxg32FdjSdXERLy1Uh+qHC1OtlGFoaRktc/DgWR1PmTtMKAbL7MEhPrjlyhV6I1QmTPlMNjtl1xsSCu8w=="
 
 
 [[menu.nav]]
