@@ -57,6 +57,14 @@ Phantom read happens when the transaction TXN1 read some rows with a select quer
 
 {{< figureCupper img="phantom read.jpg" caption="We got additional row in the same transaction from the same select query because another transaction inserted it that's called a phantom read" command="Resize" options="2000x1300" >}}
 
+So  what happened:
+
+- TXN1 starts and reads all the posts that have more than 10 likes.
+
+- TXN2 starts and insert new post with likes = 14.
+
+- TXN1 performs the same SELECT query with the same condition (likes > 10) and got a different number of rows because another transaction made an insert or delete (TXN2) and this phenomena called phantom reads.
+
 ### Read skew
 
 Lets assume we have 2 rows related with each other R1 and R2, so read skew happens when TXN1 read R1 and then TXN2 starts running and updates R1 and R2, then TXN1 continue running and reads R2, so in the end TXN1 read the old version of R1 and the new version of R2 which is called read skew phenomena, like this example:
