@@ -5,6 +5,36 @@ draft: true
 tags: [Database, Concurrency Control, Isolation levels, Relational Database, DBMS]
 ---
 
+## What the heck is transactions anyway?
+
+{{< blockquote author="Jim Gary" >}}
+A transaction is a transformation of state which has the properties of <b> atomicity
+</b><b style="color:Tomato;">(all or nothing) </b>, <b>durability </b><b style="color:Tomato;">(effects survive failures)</b> and <b>consistency </b><b style="color:Tomato;">(a correct transformation)</b>
+{{< /blockquote >}}
+
+This quote from the the original paper of Jim Gray who invented the transaction concept and the A, C and D in ACID and then Andreas Reuter and Theo Härder added the concept of Isolation (the I in ACID).
+
+So a transaction as stated is a collection of database queries that are related together like sending money between 2 accounts, So you would have 3 related queries 1 for checking if account A has the money amount needed, query for taking money from account A, And the last query to add the money to account B.
+
+And the transactions have 4 properties which are ACID for short, let's have a short look at each one of them:
+
+- #### Atomicity:
+
+    which means we treat the transaction as a non-splitable unit, so the transaction succeeds and we execute all the queries in the transaction or they all fail and we execute nothing, so partial execution for a transaction isn't an option.
+
+    {{< note >}}
+    Databases achieve Atomicity by one of 2 approaches: logging, or shadow paging. but most DBMS uses logging. but they are out of the scope of this blog post.
+    {{< /note >}}
+- #### Consistency:
+    which means any transaction should transfer the database from one valid state to another valid state. As violates the checks like (column type, column nullability, foreign and unique keys constrains).
+
+    And transactions in the future see the effects of transactions committed in the past inside of the database, Maybe that seems easy on a database on a single machine but imaging working on distributed system so any change that a transaction commits and tells the outside world that it did it, Any read request for the same piece of data should see the change even if it hits another instance of the database.
+    {{< note >}}
+    The type of consistency we are talking about is database consistency and that's what concern us in this post. there's another type called transaction consistency, which means the correctness of the data in the high-level view (real world view), as an example let's you work at amazon and they asked you to implement weird business logic that anybody deployed an app on AWS the last 2 days can't buy jackets from amazon website for a month. so they are 2 different databases so you can't do it in the database level, you should do it in the application level and it's not the database concern. so it's out of the scope of this post.
+    {{< /note >}}
+
+
+
 ## What can get wrong?
 
 There are many problems that can happen while running more than one transaction concurrently, some of them mentioned by SQL-92 standard:
@@ -71,11 +101,27 @@ Lets assume we have 2 rows related with each other R1 and R2, so read skew happe
 
 {{< figureCupper img="read skew.jpg" caption="We got the old version from post table and the new version from post_details because TXN2 updated both of them before TXN1 retrieved the row from post_details" command="Resize" options="2000x1300" >}}
 
+So what happened:
+
+- post and post_details are 2 related tables, So TXN1 starts and reads the post of id 1.
+
+- TXN2 starts and update the same post and it's details in the post_details and commits.
+
+- Then TXN1 reads the details of the same post, So TXN1 read the old post data and the new post_details data so it would make decisions on a wrong data.
+
 ### Write skew
 
 lets assume we have 2 rows related with each other R1 and R2, so write skew happens when TXN1 read R1 and R2 then decides to update only one of them but before it updates it TXN2 kicks in and updates R1 and R2 then the update from TXN1 happens so we got one row update from one transaction and the other row update from the other transaction which is called read skew phenomena, like this example:
 
 {{< figureCupper img="write skew.jpg" caption="We got a mix of writes from the 2 transactions for to related rows in different tables so we got the post from TXN2 and the post_details from TXN1" command="Resize" options="2000x1300" >}}
+
+So what happened:
+
+- post and post_details are 2 related tables, So TXN1 starts and reads the post of id 1 and it's corresponding details from post_details table, and decided to edit only the post_details but before that TXN2 kicks in.
+
+- TXN2 starts and update the same post and it's details in the post_details and commits.
+
+- Then TXN1 does it's update to the post_details, so the result in the stored data will be the  post data from TXN2 (with title "Golang") and post_details from TXN1 (with edited_by "Tomato"), and that's wrong because this title written by TXN2 "Potato", and that's called write skew phenomena.
 
 ### Lost update
 
@@ -83,23 +129,13 @@ It happens when the first transaction TXN1 reads a value and then TXN2 kicks in 
 
 {{< figureCupper img="Lost update.jpg" caption="The update from TXN1 lost because it happened while TXN2 is running and TXN2 updated it after TXN1 committed" command="Resize" options="2000x1300" >}}
 
-# Isolation levels
+So what happened:
 
-### Read uncommitted
+- We have post with title "DBMS", And TXN2 starts and reads that post.
 
-No isolation, reads every uncommitted update.
+- TXN1 starts and updates the post title to "Golang" and commits.
 
-### Read commited
-
-Read only committed updates even if they are in the middle of the current transaction.
-
-### rebeatable read
-
-transaction only sees the committed changes before the start of the transaction (the updates but new inserted rows from committed transactions in the middle of the primary transaction are seeable).
-
-### serializable
-
-transactions serializable so they don't run in parallel.
+- TXN2 updates the same post title to "Ewww php", so the update that TXN1 made in the middle was lost, and that's called lost update phenomena.
 
 * * *
 
@@ -128,3 +164,21 @@ so reads can happen concurrently by any number of transactions with shared lock 
 ## nonrepetable reads
 
 # 2 pahse locking
+
+# Isolation levels
+
+### Read uncommitted
+
+No isolation, reads every uncommitted update.
+
+### Read commited
+
+Read only committed updates even if they are in the middle of the current transaction.
+
+### rebeatable read
+
+transaction only sees the committed changes before the start of the transaction (the updates but new inserted rows from committed transactions in the middle of the primary transaction are seeable).
+
+### serializable
+
+transactions serializable so they don't run in parallel.
